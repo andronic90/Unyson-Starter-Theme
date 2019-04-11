@@ -1,0 +1,8 @@
+.fw-backend-options-group.border-bottom-none,
+.border-bottom-none {
+    border-bottom: none;
+}
+.fw-checkbox-float-left div {
+    float: left;
+    margin-right: 15px;
+}
