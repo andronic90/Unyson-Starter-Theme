@@ -1,4 +1,4 @@
-<?php if ( ! defined( 'ust' ) ) {
+<?php if ( ! defined( 'FW' ) ) {
 	die( 'Forbidden' );
 }
 
@@ -55,34 +55,4 @@ if ( isset( $data['settings']['extra']['unique_id'] ) ){
 			</div>
 		</div>
 	</section>
-	<script>
-		var screenHeight;
-		screenHeight = jQuery(window).height();
-
-		// set height for item in slider
-		jQuery(window).load(function(){
-			jQuery('.fly-slider-full .item').css('height', screenHeight);
-		});
-
-		// set height for item in slider (resize image)
-		jQuery(window).resize(function(){
-			jQuery('.fly-slider-full .item').css('height', screenHeight);
-		});
-
-		jQuery('#<?php echo $unique_class; ?>').carousel({
-			interval: <?php echo $slides_interval; ?>
-		});
-
-		if (Modernizr.touch) {
-			jQuery('#<?php echo $unique_class; ?>').find('.carousel-inner').swipe( {
-				swipeLeft: function() {
-					jQuery(this).parent().carousel('next');
-				},
-				swipeRight: function() {
-					jQuery(this).parent().carousel('prev');
-				},
-				threshold: 30
-			});
-		}
-	</script>
 <?php endif; ?>

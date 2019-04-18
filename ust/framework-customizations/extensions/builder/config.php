@@ -1,4 +1,4 @@
-<?php if (!defined('ust')) die('Forbidden');
+<?php if (!defined('FW')) die('Forbidden');
 
 $cfg = array();
 

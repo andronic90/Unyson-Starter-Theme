@@ -1,7 +1,7 @@
 <?php if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Direct access forbidden.' );
 }
-if ( ! defined( 'ust' ) ) {
+if ( ! defined( 'FW' ) ) {
 	return;
 }
 

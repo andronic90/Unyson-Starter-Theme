@@ -1,4 +1,4 @@
-<?php if (!defined('ust')) die('Forbidden');
+<?php if (!defined('FW')) die('Forbidden');
 
 $choices = fw()->extensions->get('slider')->get_populated_sliders_choices();
 

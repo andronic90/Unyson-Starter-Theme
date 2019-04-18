@@ -6,7 +6,7 @@
  */
 
 
-if ( ! defined( 'ust' ) ) {
+if ( ! defined( 'FW' ) ) {
 	if ( ! function_exists( 'fw_render_view' ) ) :
 		function fw_render_view( $file_path, $view_variables = array(), $return = true ) {
 			extract( $view_variables, EXTR_REFS );
@@ -545,7 +545,7 @@ if ( ! function_exists( 'fw_theme_header_image' ) ) :
 	 * @param integer $term_id
 	 */
 	function fw_theme_header_image() {
-		if ( ! defined( 'ust' ) ) {
+		if ( ! defined( 'FW' ) ) {
 			echo '<div class="fly-no-header-image"></div>';
 			return;
 		}
@@ -722,7 +722,7 @@ if ( ! function_exists( 'fw_theme_single_post_title' ) ) :
 	 * @param string $post_type
 	 */
 	function fw_theme_single_post_title( $post_id, $post_type = 'post' ) {
-		if ( ! defined( 'ust' ) ) {
+		if ( ! defined( 'FW' ) ) {
 			echo '<h2 class="entry-title">' . get_the_title() . '</h2>';
 			return;
 		}

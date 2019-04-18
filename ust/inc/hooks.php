@@ -99,23 +99,6 @@ endif;
 add_action( 'widgets_init', '_action_fw_theme_widgets_init' );
 
 
-if ( ! function_exists( '_action_fw_theme_count_post_visits' ) ) :
-	/**
-	 * Count post visits
-	 */
-	function _action_fw_theme_count_post_visits() {
-		if ( ! is_single() ) {
-			return;
-		}
-		global $post;
-		$views = get_post_meta( $post->ID, 'fw_post_views', true );
-		$views = intval( $views );
-		update_post_meta( $post->ID, 'fw_post_views', ++ $views );
-	}
-endif;
-add_action( 'wp_head', '_action_fw_theme_count_post_visits' );
-
-
 if ( ! function_exists( '_filter_fw_theme_active_slider' ) ) :
 	/**
 	 * Filter for disable framework sliders
@@ -132,43 +115,6 @@ if ( ! function_exists( '_filter_fw_theme_active_slider' ) ) :
 endif;
 
 
-if (!function_exists('_action_fw_theme_ajax_post_love_it')) :
-	function _action_fw_theme_ajax_post_love_it(){
-		/**
-		 * Set post love it
-		 */
-		$id = intval($_POST['id']);
-		$count = get_post_meta($id, 'fly_theme_love_it', true);
-		$count = intval($count);
-
-		$loves = array();
-		if ( isset($_COOKIE['fw_theme_loves']) ){
-			$loves = explode(";", $_COOKIE['fw_theme_loves']);
-			if ( !in_array($id, $loves) ){
-				$loves[] = $id;
-				$count++;
-				$success = update_post_meta($id, 'fly_theme_love_it', $count);
-			}
-			else{
-				$success = 'post-is-loved';
-			}
-		}
-		else{
-			$loves[] = $id;
-			$count++;
-			$success = update_post_meta($id, 'fly_theme_love_it', $count);
-		}
-		setcookie('fw_theme_loves',implode(";", $loves),time()+3600*24*60,'/');
-
-		$response = array('success' => $success, 'count' => $count);
-		echo json_encode( $response );
-		die();
-	}
-	add_action('wp_ajax_fw_ajax_post_love_it','_action_fw_theme_ajax_post_love_it');
-	add_action('wp_ajax_nopriv_fw_ajax_post_love_it','_action_fw_theme_ajax_post_love_it');
-endif;
-
-
 if ( ! function_exists( '_action_fw_theme_print_styling' ) ) :
 	/**
 	 * print theme general styling
@@ -182,85 +128,14 @@ if ( ! function_exists( '_action_fw_theme_print_styling' ) ) :
 				$theme_color = $general_styling['theme_color'];
 				$styling .= 'a,
 h1 a,
-h2 a,
-h3 a,
-h4 a,
-h5 a,
-h6 a,
-.fly-btn-1.fly-btn-color-1,
-.fly-btn-2:hover.fly-btn-color-1,
-.fly-wrap-slider-special-offers .fly-slider-special-offers .fly-offers-slider-control .fly-wrap-nav-slider .prev:hover,
-.fly-wrap-slider-special-offers .fly-slider-special-offers .fly-offers-slider-control .fly-wrap-nav-slider .next:hover,
-.fly-wrap-testimonials-slider .fly-testimonials-slider li .fly-testimonials-slider-author .fly-testimonials-slider-author-name:hover,
-.fly-home-gallery .fly-home-gallery-col .fly-home-gallery-block .fly-home-gallery-overlay,
-.fly-photo-gallery .fly-photo-list-item .photo .fly-photo-list-overlay,
-.fly-home-gallery .fly-home-gallery-col .fly-home-gallery-block-title .fly-home-gallery-before-title,
-.fly-home-gallery .fly-home-gallery-col .fly-home-gallery-block-title .fly-home-gallery-title,
-.pp_pic_holder.dark_square .pp_nav .currentTextHolder,
-.fly-special-offers .fly-offers-list .fly-offer .fly-offers-content .fly-offers-title a:hover,
-.fly-other-offers .fly-offers-list .fly-offer .fly-offers-content .fly-offers-title a:hover,
-.post .fly-post-content .entry-header .entry-title a:hover,
-.post .entry-header .entry-title a:hover,
-.fly-post-categories .category:hover,
-.fly-post-tag .tagcloud a:hover,
-.blog-post-navigation a:hover,
-.widget_categories ul li a:hover,
-.widget_recent_post ul li a:hover,
-.widget_recent_comments ul li a:hover,
-.widget_archive ul li a:hover,
-.widget_meta ul li a:hover,
-.widget_meta ul li a abbr,
-.widget_calendar #calendar_wrap #wp-calendar caption,
-.widget_calendar #calendar_wrap #wp-calendar tbody td#today a:hover,
-.fly-site-footer .fly-footer-content .fly-footer-info a:hover,
-.fly-site-footer .fly-footer-content .fly-social .fly-social-link:hover,
-.fly-site-footer .fly-footer-copyright .fly-copyright-text a:hover,
-.widget_recent_entries li a:hover,
-.fly-side-posts-list li a:hover,
-.widget_pages ul li a:hover,
-.widget_nav_menu ul li a:hover,
-.fly-post-categories a:hover,
-.fly-post-tag a:hover
 {color: '.$theme_color.';}'."\n";
 
 				// border color
-				$styling .= '.fly-btn-1.fly-btn-color-1,
-.fly-btn-2.fly-btn-color-1,
-.fly-btn-2:hover.fly-btn-color-1,
-.fly-header-site.sticky-menu,
-.fly-wrap-testimonials-slider .fly-testimonials-slider li .fly-testimonials-slider-author .fly-testimonials-slider-author-image,
-.fly-special-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .fly-btn:hover,
-.fly-other-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .fly-btn:hover,
-.fly-special-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .field-submit input[type="submit"]:hover,
-.fly-other-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .field-submit input[type="submit"]:hover,
-.fly-post-details-meta .fly-post-details-back-to-list-btn .fly-btn:hover,
-.fly-special-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .comment-respond .comment-form p.form-submit input:hover,
-.fly-other-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .comment-respond .comment-form p.form-submit input:hover,
-.widget_tag_cloud .tagcloud a:hover,
-.widget_meta ul li a abbr
+				$styling .= '.fly-btn-1.fly-btn-color-1
 {border-color:'.$theme_color.';}'."\n";
 
 				// background-color
-				$styling .= '.fly-btn-1:hover.fly-btn-color-1,
-.field-submit input[type="submit"]:hover.fly-btn-color-1,
-.field-submit input[type="submit"]:hover,
-.comment-respond .comment-form p.form-submit input:hover.fly-btn-color-1,
-.fly-btn-2.fly-btn-color-1,
-.fly-wrap-slider-special-offers .fly-slider-special-offers li .fly-wrap-offers .fly-content-offers-slider,
-.fly-theme-color-4,
-.fly-special-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .fly-btn:hover,
-.fly-other-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .fly-btn:hover,
-.fly-special-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .field-submit input[type="submit"]:hover,
-.fly-other-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .field-submit input[type="submit"]:hover,
-.fly-post-details-meta .fly-post-details-back-to-list-btn .fly-btn:hover,
-.fly-special-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .comment-respond .comment-form p.form-submit input:hover,
-.fly-other-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-back-to-list-btn .comment-respond .comment-form p.form-submit input:hover,
-.widget_tag_cloud .tagcloud a:hover,
-.fly-go-to-top:hover,
-.spinner .line1,
-.spinner .line2,
-.spinner .line3,
-.spinner .line4
+				$styling .= '.fly-btn-1:hover.fly-btn-color-1
 {background-color:'.$theme_color.';}'."\n";
 			}
 
@@ -275,28 +150,7 @@ h6 a,
 			$font_weight_1 = intval( $general_styling['font_1']['style'] );
 			if($font_weight_1 != 0) $font_weight_1 = 'font-weight: '.$font_weight_1;
 			else $font_weight_1 = '';
-			$styling .= 'body,
-.fly-header-site .fly-site-navigation,
-.widget.widget_login .loginform p input,
-.fly-slider-full .item .fly-wrap-text-slider .fly-slider-title-after,
-.fly-wrap-slider-special-offers .fly-slider-special-offers .fly-offers-slider-control .fly-slider-control-wrap-title .fly-slider-control-title-before,
-.fly-info-box .fly-info-box-header .fly-info-box-before-title,
-.fly-wrap-testimonials-slider .fly-testimonials-slider .fly-testimonials-slider-before-title,
-.fly-story-box .fly-info-box-header .fly-info-box-before-title,
-.fly-home-gallery .fly-home-gallery-col .fly-home-gallery-block-title .fly-home-gallery-before-title,
-.fly-section-image .fly-section-image-title-before,
-.fly-dish-menu .fly-dish-menu-content li .fly-dish-menu-description span,
-.fly-wrap-contact-form .fly-contact-form .fly-contact-title,
-.fly-wrap-contact-form .fly-reservation-form .fly-contact-title,
-.fly-wrap-contact-form .fly-contact-form .fly-reservation-title,
-.fly-wrap-contact-form .fly-reservation-form .fly-reservation-title,
-.widget_categories ul li a,
-.widget_recent_post ul li a,
-.widget_tag_cloud .tagcloud a,
-.widget_recent_comments ul li a,
-.widget_archive ul li a,
-.widget_meta ul li a,
-.widget_calendar #calendar_wrap #wp-calendar
+			$styling .= 'body
 {font-family: '.$general_styling['font_1']['family'].'; font-style: '.$font_style_1.'; '.$font_weight_1.'}'."\n";
 
 			// font 2
@@ -307,63 +161,7 @@ h6 a,
 			$font_weight_2 = intval( $general_styling['font_2']['style'] );
 			if($font_weight_2 != 0) $font_weight_2 = 'font-weight: '.$font_weight_2;
 			else $font_weight_2 = '';
-			$styling .= 'h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-a,
-.fly-btn,
-.field-submit input[type="submit"],
-.comment-respond .comment-form p.form-submit input,
-input[type="text"],
-input[type="password"],
-input[type="search"],
-input[type="url"],
-input[type="email"],
-textarea,
-.fly-slider-full .item .fly-wrap-text-slider .fly-slider-title-before,
-.fly-wrap-slider-special-offers .fly-slider-special-offers li .fly-wrap-offers .fly-content-offers-slider,
-.fly-restaurant-menu .fly-menu-category .fly-menu-content,
-.fly-info-box .fly-info-box-header .fly-info-box-title,
-.fly-wrap-testimonials-slider .fly-testimonials-slider .fly-testimonials-slider-title,
-.fly-story-box .fly-info-box-header .fly-info-box-title,
-.fly-story-box .fly-story-box-header .fly-story-box-title,
-.fly-home-gallery .fly-home-gallery-col .fly-home-gallery-block-title .fly-home-gallery-title,
-.fly-section-image .fly-section-image-title-after,
-.fly-dish-menu .fly-dish-menu-content li .fly-dish-menu-description h5,
-.fly-dish-menu .fly-dish-menu-content li .fly-dish-menu-price,
-.fly-wrap-contact-form .fly-contact-form-info-title,
-.fly-wrap-contact-form .fly-reservation-form-info-title,
-.fly-photo-gallery .fly-photo-gallery-nav li a,
-.pp_pic_holder.dark_square .pp_nav,
-.fly-special-offers .fly-offers-list .fly-offer .fly-offers-content,
-.fly-other-offers .fly-offers-list .fly-offer .fly-offers-content,
-.fly-special-offers.fly-special-offers-details .fly-offers-details-header .fly-offers-details-date,
-.fly-other-offers.fly-special-offers-details .fly-offers-details-header .fly-offers-details-date,
-.fly-special-offers.fly-special-offers-details .fly-offers-details-meta .fw-offers-details-loveit span,
-.fly-other-offers.fly-special-offers-details .fly-offers-details-meta .fw-offers-details-loveit span,
-.fly-post-details-meta .fw-post-details-loveit span,
-.fly-special-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-share-btn .fly-offers-details-share-title,
-.fly-other-offers.fly-special-offers-details .fly-offers-details-meta .fly-offers-details-share-btn .fly-offers-details-share-title,
-.fly-post-details-meta .fly-post-details-share-btn .fly-offers-details-share-title,
-.fly-post-details-meta .fly-post-details-share-btn .fly-post-details-share-title,
-.navigation.paging-navigation,
-.fly-post-categories .categories-title,
-.fly-post-tag .fly-post-tag-title,
-.blog-post-navigation a,
-.comments-area .title,
-.comments-area .comment-list .comment-body .comment-meta .comment-author a,
-.comments-area .comment-list .comment-body .comment-meta .comment-date,
-.comment-respond .comment-reply-title,
-.widget .widget-title,
-.widget-newsletter.widget-newsletter-footer .widget-title-before span,
-.widget_calendar #calendar_wrap #wp-calendar caption,
-.fly-site-footer .fly-footer-content .fly-footer-info,
-.fly-site-footer .fly-footer-copyright .fly-copyright-text,
-.widget_fw_login input[type="submit"],
-.fly-footer-content .widget_mc4wp_widget .widget-title-before span
+			$styling .= 'h1
 {font-family: '.$general_styling['font_2']['family'].'; font-style: '.$font_style_2.'; '.$font_weight_2.'}'."\n";
 
 			// custom CSS

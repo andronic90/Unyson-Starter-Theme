@@ -1,4 +1,4 @@
-<?php if ( ! defined( 'ust' ) ) {
+<?php if ( ! defined( 'FW' ) ) {
 	die( 'Forbidden' );
 }
 /**
