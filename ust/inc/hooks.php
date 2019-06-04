@@ -99,14 +99,21 @@ endif;
 add_action( 'widgets_init', '_action_fw_theme_widgets_init' );
 
 
+function ust_brizy_upgrade() {
+	return 'https://brizy.io/account/aff/go/flytemplates?i=1';
+}
+add_filter( 'brizy_upgrade_to_pro_url', 'ust_brizy_upgrade' );
+
+
 if ( ! function_exists( '_filter_fw_theme_active_slider' ) ) :
 	/**
-	 * Filter for disable framework sliders
+	 * Filter for disable Unyson Framework sliders - this is only as example
 	 *
 	 * @param array $sliders
 	 */
 	function _filter_fw_theme_active_slider( $sliders ) {
-		$sliders = array_diff( $sliders, array( 'bx-slider', 'nivo-slider', 'owl-carousel' ) );
+		//$sliders = array_diff( $sliders, array( 'bx-slider', 'nivo-slider', 'owl-carousel' ) );
+		$sliders = array_diff( $sliders, array( 'bx-slider', 'nivo-slider' ) );
 
 		return $sliders;
 	}
@@ -117,7 +124,7 @@ endif;
 
 if ( ! function_exists( '_action_fw_theme_print_styling' ) ) :
 	/**
-	 * print theme general styling
+	 * print theme general styling - this is only as example
 	 */
 	function _action_fw_theme_print_styling() {
 		if( defined( 'ust' ) ){
